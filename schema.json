@@ -1,0 +1,958 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$defs": {
+    "NonEmptyString": {
+      "type": "string",
+      "description": "The awarder of the award, the organization or institution that awarded the award",
+      "title": "nonEmptyString",
+      "examples": [
+        "Google"
+      ],
+      "minLength": 1
+    }
+  },
+  "type": "object",
+  "required": [
+    "basics",
+    "meta"
+  ],
+  "properties": {
+    "awards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "awarder",
+          "date"
+        ],
+        "properties": {
+          "awarder": {
+            "$ref": "#/$defs/NonEmptyString"
+          },
+          "date": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The date of the award, format: YYYY-MM-DD, YYYY-MM or YYYY",
+            "examples": [
+              "2021-01-01"
+            ],
+            "pattern": "^[1-9]\\d{3}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12]\\d|3[01]))?)?$"
+          },
+          "location": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "Any information about the location of the award",
+            "examples": [
+              "San Francisco, CA"
+            ]
+          },
+          "summary": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The summary of the award, including the award name, the award level, the award category, etc.",
+            "examples": [
+              "Google AI Research Award"
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/NonEmptyString"
+            },
+            "description": "Tags associated with the award",
+            "examples": [
+              [
+                "Google",
+                "AI"
+              ]
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "basics": {
+      "type": "object",
+      "required": [
+        "headline",
+        "name"
+      ],
+      "properties": {
+        "dateOfBirth": {
+          "$ref": "#/$defs/NonEmptyString",
+          "description": "The date of birth of resume subject, format: YYYY-MM-DD",
+          "pattern": "^[1-9]\\d{3}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12]\\d|3[01]))?)?$",
+          "examples": [
+            "1990-01-01"
+          ]
+        },
+        "driverLicenses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/NonEmptyString"
+          },
+          "description": "The driver licenses of resume subject",
+          "examples": [
+            [
+              "A",
+              "B",
+              "C"
+            ]
+          ]
+        },
+        "email": {
+          "$ref": "#/$defs/NonEmptyString",
+          "description": "The email address of resume subject",
+          "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
+        },
+        "headline": {
+          "$ref": "#/$defs/NonEmptyString"
+        },
+        "image": {
+          "$ref": "#/$defs/NonEmptyString",
+          "description": "The image URL of resume subject",
+          "pattern": "^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*\\/?$",
+          "examples": [
+            "https://www.linkedin.com/in/john-doe/image"
+          ]
+        },
+        "location": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "address": {
+              "$ref": "#/$defs/NonEmptyString",
+              "description": "The address of resume subject",
+              "examples": [
+                "123 Main St"
+              ]
+            },
+            "city": {
+              "$ref": "#/$defs/NonEmptyString",
+              "description": "The city of resume subject",
+              "examples": [
+                "New York"
+              ]
+            },
+            "countryCode": {
+              "$ref": "#/$defs/NonEmptyString",
+              "description": "The country code of resume subject, ISO 3166-1 alpha-2",
+              "pattern": "^[a-z]{2}$"
+            },
+            "postalCode": {
+              "$ref": "#/$defs/NonEmptyString",
+              "description": "The postal code of resume subject",
+              "examples": [
+                "10001"
+              ]
+            },
+            "region": {
+              "$ref": "#/$defs/NonEmptyString",
+              "description": "The region of resume subject",
+              "examples": [
+                "New York"
+              ]
+            },
+            "remote": {
+              "type": "boolean",
+              "description": "Whether the resume subject is willing to work remotely",
+              "examples": [
+                true
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "name": {
+          "$ref": "#/$defs/NonEmptyString"
+        },
+        "nationalities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "a string matching the pattern ^[a-z]{2}$",
+            "pattern": "^[a-z]{2}$"
+          },
+          "description": "The nationalities of resume subject"
+        },
+        "phone": {
+          "$ref": "#/$defs/NonEmptyString",
+          "description": "The phone number of resume subject",
+          "examples": [
+            "+1234567890"
+          ]
+        },
+        "profiles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "network",
+              "url"
+            ],
+            "properties": {
+              "network": {
+                "$ref": "#/$defs/NonEmptyString"
+              },
+              "url": {
+                "$ref": "#/$defs/NonEmptyString",
+                "description": "The URL of the profile",
+                "examples": [
+                  "https://www.linkedin.com/in/john-doe"
+                ],
+                "pattern": "^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*\\/?$"
+              },
+              "username": {
+                "$ref": "#/$defs/NonEmptyString",
+                "description": "The username of the profile",
+                "examples": [
+                  "john-doe"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "summary": {
+          "$ref": "#/$defs/NonEmptyString",
+          "description": "The summary of resume subject",
+          "examples": [
+            "After 10 years of working in the field of computer science, I am looking for a new challenge in the field of AI."
+          ]
+        },
+        "url": {
+          "$ref": "#/$defs/NonEmptyString",
+          "description": "The personal website, portfolio or blog of resume subject",
+          "pattern": "^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*\\/?$",
+          "examples": [
+            "https://www.john-doe.com"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "certificates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "issueDate",
+          "issuer",
+          "name"
+        ],
+        "properties": {
+          "issueDate": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The date of the certificate, format: YYYY-MM-DD, YYYY-MM or YYYY",
+            "examples": [
+              "2021-01-01"
+            ],
+            "pattern": "^[1-9]\\d{3}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12]\\d|3[01]))?)?$"
+          },
+          "issuer": {
+            "$ref": "#/$defs/NonEmptyString"
+          },
+          "name": {
+            "$ref": "#/$defs/NonEmptyString"
+          },
+          "url": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The URL of the certificate, the URL of the certificate page or the URL of the certificate issuer",
+            "pattern": "^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*\\/?$",
+            "examples": [
+              "https://www.google.com/certificate/1234567890"
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/NonEmptyString"
+            },
+            "description": "Tags associated with the certificate",
+            "examples": [
+              [
+                "Google",
+                "AI"
+              ]
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "education": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "area",
+          "institution",
+          "startDate",
+          "studyType"
+        ],
+        "properties": {
+          "area": {
+            "$ref": "#/$defs/NonEmptyString"
+          },
+          "courses": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "description": {
+                  "$ref": "#/$defs/NonEmptyString",
+                  "description": "The description of the course",
+                  "examples": [
+                    "10 hours of video lectures and 20 hours of practice problems, including A* algorithm, Dijkstra algorithm, etc."
+                  ]
+                },
+                "name": {
+                  "$ref": "#/$defs/NonEmptyString"
+                },
+                "format": {
+                  "$ref": "#/$defs/NonEmptyString",
+                  "description": "The format and delivery mode",
+                  "examples": [
+                    "Online bootcamp",
+                    "In-person",
+                    "etc"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "endDate": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The end date of the education, format: YYYY-MM-DD, YYYY-MM or YYYY",
+            "pattern": "^[1-9]\\d{3}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12]\\d|3[01]))?)?$",
+            "examples": [
+              "2021-01-01"
+            ]
+          },
+          "institution": {
+            "$ref": "#/$defs/NonEmptyString"
+          },
+          "location": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "Any information about the location of the education",
+            "examples": [
+              "San Francisco, CA"
+            ]
+          },
+          "score": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The score obtained in the education",
+            "examples": [
+              "3.8"
+            ]
+          },
+          "startDate": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The start date of the education, format: YYYY-MM-DD, YYYY-MM or YYYY",
+            "examples": [
+              "2018-09-01"
+            ],
+            "pattern": "^[1-9]\\d{3}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12]\\d|3[01]))?)?$"
+          },
+          "studyType": {
+            "$ref": "#/$defs/NonEmptyString"
+          },
+          "url": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The URL of the education, the URL of the education page or the URL of the education institution",
+            "pattern": "^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*\\/?$",
+            "examples": [
+              "https://www.stanford.edu"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "interests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "description": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The description of the interest",
+            "examples": [
+              "I am interested in reading books, specialising in science fiction, fantasy, and manga."
+            ]
+          },
+          "name": {
+            "$ref": "#/$defs/NonEmptyString"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/NonEmptyString"
+            },
+            "description": "Tags associated with the interest",
+            "examples": [
+              [
+                "Naruto",
+                "One Piece",
+                "Bleach"
+              ]
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "language"
+        ],
+        "properties": {
+          "certifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/NonEmptyString"
+            },
+            "description": "The certifications in the language, the certifications the resume subject has",
+            "examples": [
+              [
+                "TOEFL 100",
+                "IELTS 7.5"
+              ]
+            ]
+          },
+          "fluency": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The fluency in the language",
+            "examples": [
+              "Native"
+            ]
+          },
+          "language": {
+            "$ref": "#/$defs/NonEmptyString"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "canonical": {
+          "$ref": "#/$defs/NonEmptyString",
+          "description": "The canonical URL of the resume, the URL of the resume page",
+          "pattern": "^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*\\/?$",
+          "examples": [
+            "https://www.john-doe.com/resume"
+          ]
+        },
+        "lastModified": {
+          "$ref": "#/$defs/NonEmptyString",
+          "description": "The last modified date of the resume, format: YYYY-MM-DD, YYYY-MM or YYYY",
+          "pattern": "^[1-9]\\d{3}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12]\\d|3[01]))?)?$",
+          "examples": [
+            "2021-01-01"
+          ]
+        },
+        "schema": {
+          "$ref": "#/$defs/NonEmptyString",
+          "description": "The schema of the resume, the schema of the resume page, e.g. ResumeSchema, ResumeSchema.v1, etc.",
+          "examples": [
+            "universal-resume.1.0.0"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "description": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The description of the project",
+            "examples": [
+              "An open-source resume builder that allows users to create a resume in a few minutes."
+            ]
+          },
+          "endDate": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The end date of the project, format: YYYY-MM-DD, YYYY-MM or YYYY",
+            "pattern": "^[1-9]\\d{3}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12]\\d|3[01]))?)?$",
+            "examples": [
+              "2021-01-01"
+            ]
+          },
+          "entity": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The entity of the project, the organization or institution that the project is related to, e.g. Google, Facebook, etc.",
+            "examples": [
+              "Github"
+            ]
+          },
+          "highlights": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/NonEmptyString"
+            },
+            "description": "The highlights of the project, the key features of the project, the main contributions of the project",
+            "examples": [
+              [
+                "Worked on standard resume schema"
+              ],
+              [
+                "Write TS and Rust implementations"
+              ]
+            ]
+          },
+          "location": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The location of the project",
+            "examples": [
+              "Shanghai, China, Remote, etc."
+            ]
+          },
+          "name": {
+            "$ref": "#/$defs/NonEmptyString"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/NonEmptyString"
+            },
+            "description": "The roles of the project, the roles the resume subject has in the project",
+            "examples": [
+              [
+                "Software Engineer",
+                "Full Stack Developer",
+                "Contributor",
+                "Maintainer",
+                "Founder"
+              ]
+            ]
+          },
+          "startDate": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The start date of the project, format: YYYY-MM-DD, YYYY-MM or YYYY",
+            "pattern": "^[1-9]\\d{3}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12]\\d|3[01]))?)?$",
+            "examples": [
+              "2021-01-01"
+            ]
+          },
+          "status": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The status of the project, the status of the project",
+            "examples": [
+              "Active",
+              "Inactive",
+              "Archived",
+              "etc."
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/NonEmptyString"
+            },
+            "description": "Associated tags of the project",
+            "examples": [
+              [
+                "Open-source",
+                "Resume",
+                "Builder"
+              ]
+            ]
+          },
+          "type": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The type, category or kind of the project",
+            "examples": [
+              "Open-source",
+              "Side Project",
+              "Study Project",
+              "Startup",
+              "etc."
+            ]
+          },
+          "url": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The URL of the project, the URL of the project page or the URL of the project repository",
+            "pattern": "^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*\\/?$",
+            "examples": [
+              "https://www.github.com/universal-resume"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "publications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "authors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/NonEmptyString"
+            },
+            "description": "The authors of the publication",
+            "examples": [
+              [
+                "John Doe",
+                "Jane Doe"
+              ]
+            ]
+          },
+          "doi": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The DOI of the publication",
+            "examples": [
+              "10.1000/182"
+            ]
+          },
+          "name": {
+            "$ref": "#/$defs/NonEmptyString"
+          },
+          "publisher": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The publisher of the publication",
+            "examples": [
+              "Addison-Wesley"
+            ]
+          },
+          "releaseDate": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The release date of the publication, format: YYYY-MM-DD, YYYY-MM or YYYY",
+            "pattern": "^[1-9]\\d{3}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12]\\d|3[01]))?)?$",
+            "examples": [
+              "2021-01-01"
+            ]
+          },
+          "summary": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The summary of the publication",
+            "examples": [
+              "A book about the art of computer programming"
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/NonEmptyString"
+            },
+            "description": "Associated tags of the publication",
+            "examples": [
+              [
+                "Computer Science",
+                "Programming",
+                "Algorithm"
+              ]
+            ]
+          },
+          "type": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The type, category or kind of the publication",
+            "examples": [
+              "Book",
+              "Article",
+              "Paper",
+              "etc."
+            ]
+          },
+          "url": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The URL of the publication, the URL of the publication page or the URL of the publication repository",
+            "pattern": "^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*\\/?$",
+            "examples": [
+              "https://www.amazon.com/The-Art-Computer-Programming-Volumes/dp/0321751043"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "position"
+        ],
+        "properties": {
+          "company": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The company you worked for at the time of the reference",
+            "examples": [
+              "Google"
+            ]
+          },
+          "contact": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The contact of the reference",
+            "examples": [
+              "john.doe@google.com",
+              "linkedin.com/in/john-doe",
+              "+1234567890"
+            ]
+          },
+          "name": {
+            "$ref": "#/$defs/NonEmptyString"
+          },
+          "position": {
+            "$ref": "#/$defs/NonEmptyString"
+          },
+          "testimonial": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The testimonial of the reference",
+            "examples": [
+              "John is a great software engineer who is always willing to help others."
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "level": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The level of the skill",
+            "examples": [
+              "Beginner",
+              "Intermediate",
+              "Advanced",
+              "Expert"
+            ]
+          },
+          "name": {
+            "$ref": "#/$defs/NonEmptyString"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/NonEmptyString"
+            },
+            "description": "The tags of the skill",
+            "examples": [
+              [
+                "Python",
+                "Rust",
+                "TypeScript",
+                "React",
+                "Node.js"
+              ]
+            ]
+          },
+          "yearsOfExperience": {
+            "type": "number",
+            "description": "The years of experience of the skill",
+            "examples": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "volunteers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "organization",
+          "position",
+          "startDate"
+        ],
+        "properties": {
+          "endDate": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The end date of the volunteer experience",
+            "pattern": "^[1-9]\\d{3}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12]\\d|3[01]))?)?$",
+            "examples": [
+              "2021-01-01"
+            ]
+          },
+          "highlights": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/NonEmptyString"
+            },
+            "description": "The highlights of the volunteer experience",
+            "examples": [
+              [
+                "Give math lessons to the children of my street"
+              ]
+            ]
+          },
+          "location": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The location of the volunteer experience",
+            "examples": [
+              "Sao Paulo, Brazil"
+            ]
+          },
+          "organization": {
+            "$ref": "#/$defs/NonEmptyString"
+          },
+          "position": {
+            "$ref": "#/$defs/NonEmptyString"
+          },
+          "startDate": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The start date of the volunteer experience",
+            "examples": [
+              "2021-01-01"
+            ],
+            "pattern": "^[1-9]\\d{3}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12]\\d|3[01]))?)?$"
+          },
+          "summary": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The summary of the volunteer experience",
+            "examples": [
+              "I gave math lessons to the children of my street, from 6 to 12 years old, twice a week"
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/NonEmptyString"
+            },
+            "description": "The tags of the volunteer experience",
+            "examples": [
+              [
+                "Math",
+                "Volunteer",
+                "Children",
+                "School"
+              ]
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "work": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "organization",
+          "position",
+          "startDate"
+        ],
+        "properties": {
+          "contractType": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The contract type of the work experience",
+            "examples": [
+              "Full-time",
+              "Part-time",
+              "Freelance",
+              "etc."
+            ]
+          },
+          "description": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The description of the work experience",
+            "examples": [
+              "I worked as a software engineer at Google"
+            ]
+          },
+          "endDate": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The end date of the work experience",
+            "pattern": "^[1-9]\\d{3}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12]\\d|3[01]))?)?$",
+            "examples": [
+              "2021-01-01"
+            ]
+          },
+          "highlights": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/NonEmptyString"
+            },
+            "description": "The highlights of the work experience",
+            "examples": [
+              [
+                "Optimized loading time of the website by 50%",
+                "Designed and implemented the new UI of the website"
+              ]
+            ]
+          },
+          "location": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The location of the work experience",
+            "examples": [
+              "Miami, Florida, USA"
+            ]
+          },
+          "organization": {
+            "$ref": "#/$defs/NonEmptyString"
+          },
+          "position": {
+            "$ref": "#/$defs/NonEmptyString"
+          },
+          "startDate": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The start date of the work experience",
+            "examples": [
+              "2021-01-01"
+            ],
+            "pattern": "^[1-9]\\d{3}(?:-(?:0[1-9]|1[0-2])(?:-(?:0[1-9]|[12]\\d|3[01]))?)?$"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/NonEmptyString"
+            },
+            "description": "The tags of the work experience",
+            "examples": [
+              [
+                "Typescript",
+                "React",
+                "Node.js",
+                "Tailwind CSS"
+              ]
+            ]
+          },
+          "url": {
+            "$ref": "#/$defs/NonEmptyString",
+            "description": "The URL of the organization's website",
+            "pattern": "^(https?:\\/\\/)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*\\/?$",
+            "examples": [
+              "https://www.google.com"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

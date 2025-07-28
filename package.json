@@ -1,0 +1,26 @@
+{
+    "name": "@universal-resume/json-schema",
+    "version": "0.1.0",
+    "description": "The universal-resume standard in json-schema format. Inspired by the json-resume organization adding required fields and a few other improvements.",
+    "main": "build.ts",
+    "type": "module",
+    "scripts": {
+        "build": "tsc --project ./tsconfig.json",
+        "check": "biome check .",
+        "format": "biome format . --write",
+        "lint": "biome lint .",
+        "test": "vitest"
+    },
+    "author": "Alexis Besson",
+    "license": "MIT",
+    "dependencies": {
+        "@universal-resume/ts-schema": "^0.2.2",
+        "ts-node": "^10.9.2"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^2.1.2",
+        "@types/node": "^24.1.0",
+        "typescript": "^5.8.3",
+        "vitest": "^3.2.4"
+    }
+}
