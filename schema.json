@@ -135,7 +135,7 @@
         "birth": {
           "$ref": "#/$defs/Day"
         },
-        "driverLicenses": {
+        "drivingLicenses": {
           "type": "array",
           "items": {
             "$ref": "#/$defs/NonEmptyString"
@@ -178,8 +178,7 @@
           "$ref": "#/$defs/Summary"
         },
         "website": {
-          "$ref": "#/$defs/Url",
-          "description": "The personal website, portfolio or blog of resume subject"
+          "$ref": "#/$defs/Url"
         },
         "remote": {
           "type": "boolean",
@@ -193,9 +192,15 @@
     },
     "NonEmptyTrimmedString": {
       "type": "string",
-      "description": "a non empty string",
+      "description": "Date, delay, or any information about your availability to take a new job",
       "title": "nonEmptyString",
       "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+      "examples": [
+        "ASAP",
+        "3 months",
+        "September",
+        "Q2"
+      ],
       "minLength": 1
     },
     "Contact": {
@@ -208,16 +213,7 @@
         "phone": {
           "$ref": "#/$defs/NonEmptyString"
         },
-        "discord": {
-          "$ref": "#/$defs/NonEmptyString"
-        },
-        "telegram": {
-          "$ref": "#/$defs/NonEmptyString"
-        },
         "linkedin": {
-          "$ref": "#/$defs/NonEmptyString"
-        },
-        "website": {
           "$ref": "#/$defs/Url"
         }
       },
@@ -226,8 +222,7 @@
       "examples": [
         {
           "email": "john.doe@google.com",
-          "phone": "+1234567890",
-          "website": "https://linkedin.com/in/john-doe"
+          "phone": "+1234567890"
         }
       ]
     },
@@ -259,7 +254,17 @@
       ],
       "properties": {
         "network": {
-          "$ref": "#/$defs/ProperNoun"
+          "type": "string",
+          "enum": [
+            "LinkedIn",
+            "Github",
+            "X",
+            "Instagram",
+            "Youtube",
+            "Twitch",
+            "Reddit",
+            "Tiktok"
+          ]
         },
         "url": {
           "$ref": "#/$defs/Url"
@@ -522,7 +527,15 @@
             }
           },
           "fluency": {
-            "$ref": "#/$defs/NonEmptyString"
+            "type": "string",
+            "enum": [
+              "elementary",
+              "limited-working",
+              "professional-working",
+              "full-professional",
+              "fluent",
+              "bilingual"
+            ]
           },
           "name": {
             "$ref": "#/$defs/ProperNoun"
@@ -550,7 +563,7 @@
       },
       "additionalProperties": false
     },
-    "projects": {
+    "initiatives": {
       "type": "array",
       "items": {
         "type": "object",
@@ -558,7 +571,8 @@
           "summary",
           "name",
           "position",
-          "startDate"
+          "startDate",
+          "type"
         ],
         "properties": {
           "summary": {
@@ -585,6 +599,34 @@
           "position": {
             "$ref": "#/$defs/Position"
           },
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "date",
+                "name"
+              ],
+              "properties": {
+                "contact": {
+                  "$ref": "#/$defs/Contact"
+                },
+                "date": {
+                  "$ref": "#/$defs/Day"
+                },
+                "name": {
+                  "$ref": "#/$defs/ProperNoun"
+                },
+                "position": {
+                  "$ref": "#/$defs/Position"
+                },
+                "testimonial": {
+                  "$ref": "#/$defs/NonEmptyString"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
           "startDate": {
             "$ref": "#/$defs/Day"
           },
@@ -598,7 +640,16 @@
             }
           },
           "type": {
-            "$ref": "#/$defs/NonEmptyString"
+            "type": "string",
+            "enum": [
+              "volunteering",
+              "personal",
+              "education",
+              "open-source",
+              "startup",
+              "civic",
+              "research"
+            ]
           },
           "url": {
             "$ref": "#/$defs/Url"
@@ -614,7 +665,8 @@
         "required": [
           "name",
           "date",
-          "summary"
+          "summary",
+          "type"
         ],
         "properties": {
           "authors": {
@@ -645,47 +697,24 @@
             }
           },
           "type": {
-            "$ref": "#/$defs/NonEmptyString"
+            "type": "string",
+            "enum": [
+              "article",
+              "blog-post",
+              "book",
+              "book-chapter",
+              "conference-paper",
+              "journal-paper",
+              "whitepaper",
+              "thesis",
+              "report",
+              "webinar",
+              "presentation",
+              "other"
+            ]
           },
           "url": {
             "$ref": "#/$defs/Url"
-          }
-        },
-        "additionalProperties": false
-      }
-    },
-    "references": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": [
-          "date",
-          "name"
-        ],
-        "properties": {
-          "organization": {
-            "$ref": "#/$defs/Organization"
-          },
-          "contact": {
-            "$ref": "#/$defs/Contact"
-          },
-          "profiles": {
-            "type": "array",
-            "items": {
-              "$ref": "#/$defs/Profile"
-            }
-          },
-          "date": {
-            "$ref": "#/$defs/Day"
-          },
-          "name": {
-            "$ref": "#/$defs/ProperNoun"
-          },
-          "position": {
-            "$ref": "#/$defs/Position"
-          },
-          "testimonial": {
-            "$ref": "#/$defs/NonEmptyString"
           }
         },
         "additionalProperties": false
@@ -700,7 +729,13 @@
         ],
         "properties": {
           "level": {
-            "$ref": "#/$defs/NonEmptyString"
+            "type": "string",
+            "enum": [
+              "beginner",
+              "intermediate",
+              "advanced",
+              "expert"
+            ]
           },
           "name": {
             "$ref": "#/$defs/ProperNoun"
@@ -733,65 +768,28 @@
         "additionalProperties": false
       }
     },
-    "volunteers": {
+    "employments": {
       "type": "array",
       "items": {
         "type": "object",
         "required": [
+          "type",
           "organization",
           "position",
           "startDate"
         ],
         "properties": {
-          "endDate": {
-            "$ref": "#/$defs/Day"
-          },
-          "highlights": {
-            "type": "array",
-            "items": {
-              "$ref": "#/$defs/Highlight"
-            }
-          },
-          "location": {
-            "$ref": "#/$defs/Location"
-          },
-          "organization": {
-            "$ref": "#/$defs/Organization"
-          },
-          "position": {
-            "$ref": "#/$defs/Position"
-          },
-          "startDate": {
-            "$ref": "#/$defs/Day"
-          },
-          "summary": {
-            "$ref": "#/$defs/Summary"
-          },
-          "tags": {
-            "type": "array",
-            "items": {
-              "$ref": "#/$defs/Tag"
-            }
-          },
-          "url": {
-            "$ref": "#/$defs/Url"
-          }
-        },
-        "additionalProperties": false
-      }
-    },
-    "work": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": [
-          "organization",
-          "position",
-          "startDate"
-        ],
-        "properties": {
-          "contractType": {
-            "$ref": "#/$defs/NonEmptyString"
+          "type": {
+            "type": "string",
+            "enum": [
+              "internal",
+              "freelance",
+              "agency",
+              "contract",
+              "apprenticeship",
+              "internship"
+            ],
+            "description": "The type of contract between the employer and the employee"
           },
           "summary": {
             "$ref": "#/$defs/Summary"
@@ -813,6 +811,34 @@
           },
           "position": {
             "$ref": "#/$defs/Position"
+          },
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "date",
+                "name"
+              ],
+              "properties": {
+                "contact": {
+                  "$ref": "#/$defs/Contact"
+                },
+                "date": {
+                  "$ref": "#/$defs/Day"
+                },
+                "name": {
+                  "$ref": "#/$defs/ProperNoun"
+                },
+                "position": {
+                  "$ref": "#/$defs/Position"
+                },
+                "testimonial": {
+                  "$ref": "#/$defs/NonEmptyString"
+                }
+              },
+              "additionalProperties": false
+            }
           },
           "startDate": {
             "$ref": "#/$defs/Day"

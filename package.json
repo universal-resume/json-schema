@@ -1,6 +1,6 @@
 {
     "name": "@universal-resume/json-schema",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "description": "The universal-resume standard in json-schema format. Inspired by the json-resume organization adding required fields and a few other improvements.",
     "main": "build.ts",
     "type": "module",
@@ -14,7 +14,7 @@
     "author": "Alexis Besson",
     "license": "MIT",
     "dependencies": {
-        "@universal-resume/ts-schema": "1.2.0",
+        "@universal-resume/ts-schema": "2.0.0",
         "ts-node": "^10.9.2"
     },
     "devDependencies": {
