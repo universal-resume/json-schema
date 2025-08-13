@@ -14,7 +14,7 @@
     "author": "Alexis Besson",
     "license": "MIT",
     "dependencies": {
-        "@universal-resume/ts-schema": "1.0.0",
+        "@universal-resume/ts-schema": "1.2.0",
         "ts-node": "^10.9.2"
     },
     "devDependencies": {

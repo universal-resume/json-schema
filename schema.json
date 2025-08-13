@@ -129,6 +129,9 @@
         "name"
       ],
       "properties": {
+        "availability": {
+          "$ref": "#/$defs/NonEmptyTrimmedString"
+        },
         "birth": {
           "$ref": "#/$defs/Day"
         },
@@ -142,7 +145,13 @@
           "$ref": "#/$defs/Contact"
         },
         "headline": {
-          "$ref": "#/$defs/NonEmptyString"
+          "$ref": "#/$defs/NonEmptyString",
+          "description": "The headline, title or position of resume subject",
+          "title": "maxLength(50)",
+          "examples": [
+            "Software Engineer"
+          ],
+          "maxLength": 50
         },
         "picture": {
           "$ref": "#/$defs/Url"
@@ -181,6 +190,13 @@
         }
       },
       "additionalProperties": false
+    },
+    "NonEmptyTrimmedString": {
+      "type": "string",
+      "description": "a non empty string",
+      "title": "nonEmptyString",
+      "pattern": "^\\S[\\s\\S]*\\S$|^\\S$|^$",
+      "minLength": 1
     },
     "Contact": {
       "type": "object",
@@ -365,6 +381,9 @@
           "name": {
             "$ref": "#/$defs/ProperNoun"
           },
+          "summary": {
+            "$ref": "#/$defs/Summary"
+          },
           "url": {
             "$ref": "#/$defs/Url"
           },
@@ -536,7 +555,10 @@
       "items": {
         "type": "object",
         "required": [
-          "name"
+          "summary",
+          "name",
+          "position",
+          "startDate"
         ],
         "properties": {
           "summary": {
@@ -591,7 +613,8 @@
         "type": "object",
         "required": [
           "name",
-          "date"
+          "date",
+          "summary"
         ],
         "properties": {
           "authors": {
